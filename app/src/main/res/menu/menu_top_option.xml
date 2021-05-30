@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:title="About us"
+        android:icon="@drawable/ic_baseline_list_alt_24"
+        android:id="@+id/mHome"/>
+    <item android:title="Sign out"
+        android:icon="@drawable/ic_baseline_list_alt_24"
+        android:id="@+id/mSignout"/>
+    <item android:title="Exit"
+        android:icon="@drawable/ic_baseline_apps_24"
+        android:id="@+id/mExit"/>
+</menu>

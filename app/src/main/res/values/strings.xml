@@ -1,0 +1,42 @@
+<resources>
+    <string name="app_name">ToDoList</string>
+    <string name="page_title">TDL</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string-array name="city">
+        <item>"Cau Dien"</item>
+        <item>"Chuc Son"</item>
+        <item>"Dai Nghia"</item>
+        <item>"Dong Anh"</item>
+        <item>"Dong Da"</item>
+        <item>"Ha Dong"</item>
+        <item>"Hai BaTrung"</item>
+        <item>"Hoan Kiem"</item>
+        <item>"Kim Bai"</item>
+        <item>"Lien Quan"</item>
+        <item>"Quoc Oai"</item>
+        <item>"Soc Son"</item>
+        <item>"Tay Ho"</item>
+        <item>"Thanh Xuan"</item>
+        <item>"Van Dien"</item>
+        <item>"Van Dinh"</item>
+    </string-array>
+
+    <string-array name="tasklist">
+        <item>Chores</item>
+        <item>Work</item>
+        <item>Study</item>
+    </string-array>
+
+    <string-array name="week">
+        <item>15</item>
+        <item>16</item>
+        <item>17</item>
+        <item>18</item>
+        <item>19</item>
+        <item>20</item>
+        <item>21</item>
+    </string-array>
+    <string name="facebook_app_id">775817429789710</string>
+    <string name="fb_login_protocol_scheme">fb775817429789710</string>
+</resources>

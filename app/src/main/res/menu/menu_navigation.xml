@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:title="To do List"
+        android:icon="@drawable/ic_baseline_list_alt_24"
+        android:id="@+id/mToDo"/>
+    <item android:title="PTIT News"
+        android:icon="@drawable/ic_baseline_library_books_24"
+        android:id="@+id/mNews"/>
+    <item android:title="Utility"
+        android:icon="@drawable/ic_baseline_apps_24"
+        android:id="@+id/mUtil"/>
+</menu>

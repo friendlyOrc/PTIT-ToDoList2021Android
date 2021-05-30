@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:height="192dp"
+    android:width="192dp"
+    android:viewportHeight="192"
+    android:viewportWidth="192">
+    <group android:name="background">
+        <path
+            android:fillColor="#605D9DA3"
+            android:strokeColor="#FFC20C"
+            android:strokeWidth="0.63"
+            android:pathData="M164.102,72.9285C173.455,82.5736 179.212,95.7245 179.212,110.22C179.212,111.966 170.785,113.692 170.622,115.393C170.785,117.022 179.212,118.67 179.212,120.332C179.212,155.505 141.956,151.729 96,151.729C50.0435,151.729 12.7885,155.505 12.7885,120.332C12.7885,118.67 19.4625,117.022 19.6259,115.393C19.4628,113.692 12.7885,111.966 12.7885,110.22C12.7885,96.3673 18.046,83.7426 26.6745,74.2325L26.1228,74.2673L45.454,20.1529L68.0081,56.6451L122.568,56.6451L145.122,20.1529L164.102,72.9285Z" />
+        <path
+            android:fillColor="#202020"
+            android:pathData="M96.8851,114.799L104.45,106.496L89.3206,106.496L96.8851,114.799Z" />
+    </group>
+    <group
+        android:name="eyes"
+        android:pivotX="96"
+        android:pivotY="90">
+        <path
+            android:fillColor="#EEEEEE"
+            android:pathData="M80.3926,89.3115C80.3926,82.0709 74.5727,76.2012 67.3934,76.2012C60.2142,76.2012 54.3942,82.0709 54.3942,89.3115L80.3926,89.3115Z" />
+        <path
+            android:fillColor="#EEEEEE"
+            android:pathData="M137.606,89.3115C137.606,82.0709 131.786,76.2012 124.607,76.2012C117.427,76.2012 111.607,82.0709 111.607,89.3115L137.606,89.3115Z" />
+    </group>
+</vector>
