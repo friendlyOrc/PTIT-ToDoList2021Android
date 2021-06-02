@@ -22,6 +22,7 @@ import android.widget.RatingBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.example.todolist.model.Account;
 import com.example.todolist.model.Task;
@@ -88,6 +89,7 @@ public class EditTaskActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Calendar c = Calendar.getInstance();
+                c.setTimeInMillis(System.currentTimeMillis());
                 int h = c.get(Calendar.HOUR);
                 int m = c.get(Calendar.MINUTE);
                 TimePickerDialog tpd = new TimePickerDialog(EditTaskActivity.this,
@@ -113,20 +115,24 @@ public class EditTaskActivity extends AppCompatActivity {
         btnUpdtEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Task o = new Task();
-                o.setId(Integer.parseInt(tvId.getText().toString()));
-                o.setName(etNameEdit.getText().toString());
-                o.setCategory(spnCate.getSelectedItem().toString());
-                o.setTime(etTimeEdit.getText().toString());
-                if(checkBox.isChecked()){
-                    o.setStatus(1);
+                if(etTimeEdit.getText().toString().toString().length() == 0 || etNameEdit.getText().toString().length() == 0 ){
+                    Toast.makeText(EditTaskActivity.this, "Please fill the information!", Toast.LENGTH_SHORT).show();
                 }else{
-                    o.setStatus(0);
+                    Task o = new Task();
+                    o.setId(Integer.parseInt(tvId.getText().toString()));
+                    o.setName(etNameEdit.getText().toString());
+                    o.setCategory(spnCate.getSelectedItem().toString());
+                    o.setTime(etTimeEdit.getText().toString());
+                    if(checkBox.isChecked()){
+                        o.setStatus(1);
+                    }else{
+                        o.setStatus(0);
+                    }
+                    mDatabase.child(acc.getId()).child(String.valueOf(o.getId())).setValue(o);
+                    Intent i = new Intent(EditTaskActivity.this, MainActivity.class);
+                    startActivity(i);
+                    finish();
                 }
-                mDatabase.child(acc.getId()).child(String.valueOf(o.getId())).setValue(o);
-                Intent i = new Intent(EditTaskActivity.this, MainActivity.class);
-                startActivity(i);
-                finish();
             }
         });
 

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:title="To do List"
+    <item android:title="To Do List"
         android:icon="@drawable/ic_baseline_list_alt_24"
         android:id="@+id/mToDo"/>
-    <item android:title="PTIT News"
+    <item android:title="News"
         android:icon="@drawable/ic_baseline_library_books_24"
         android:id="@+id/mNews"/>
     <item android:title="Utility"

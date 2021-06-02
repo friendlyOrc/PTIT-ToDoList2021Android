@@ -46,7 +46,10 @@ public class ArticleRecyclerViewAdapter extends RecyclerView.Adapter<ArticleRecy
         Article t = mList.get(position);
         if(t != null){
             holder.tvName.setText(t.getTitle());
-            Picasso.get().load(t.getImgUrl()).placeholder(R.color.design_default_color_background).into(holder.imgArticle);
+            if(t.getImgUrl() != null && t.getImgUrl() != ""){
+                Picasso.get().load(t.getImgUrl()).placeholder(R.color.design_default_color_background).into(holder.imgArticle);
+            }
+            holder.tvTime.setText(t.getTime());
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -65,12 +68,14 @@ public class ArticleRecyclerViewAdapter extends RecyclerView.Adapter<ArticleRecy
 
     public class ArticleViewHolder extends RecyclerView.ViewHolder {
         TextView tvName;
+        TextView tvTime;
         ImageView imgArticle;
 
         public ArticleViewHolder(@NonNull View itemView) {
             super(itemView);
             tvName = itemView.findViewById(R.id.tvNameArticle);
             imgArticle = itemView.findViewById(R.id.imgArticle);
+            tvTime = itemView.findViewById(R.id.tvTimeArticle);
         }
     }
 }

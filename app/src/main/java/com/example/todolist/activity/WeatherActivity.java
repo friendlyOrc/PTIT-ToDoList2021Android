@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -39,11 +40,14 @@ public class WeatherActivity extends AppCompatActivity {
     private TextView tvNote;
     private TextView tvHumid;
     private TextView tvWind;
+    private LinearLayout view;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weather);
         init();
+        view.setVisibility(LinearLayout.GONE);
 
         btnWea.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,6 +77,7 @@ public class WeatherActivity extends AppCompatActivity {
 
                             @Override
                             public void run() {
+                                view.setVisibility(LinearLayout.VISIBLE);
                                 JSONObject jsonObject = null;
                                 try {
                                     jsonObject = new JSONObject(json);
@@ -166,5 +171,6 @@ public class WeatherActivity extends AppCompatActivity {
         tvNote = findViewById(R.id.tvNoteWea);
         tvHumid = findViewById(R.id.tvHumidWea);
         tvWind = findViewById(R.id.tvWindWea);
+        view = findViewById(R.id.weatherInfo);
     }
 }

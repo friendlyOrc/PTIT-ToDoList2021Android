@@ -4,14 +4,24 @@ public class Article {
     private String url;
     private String title;
     private String imgUrl;
+    private String time;
 
     public Article() {
     }
 
-    public Article(String url, String title, String imgUrl) {
+    public Article(String url, String title, String imgUrl, String time) {
         this.url = url;
         this.title = title;
         this.imgUrl = imgUrl;
+        this.time = time;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
     }
 
     public String getUrl() {

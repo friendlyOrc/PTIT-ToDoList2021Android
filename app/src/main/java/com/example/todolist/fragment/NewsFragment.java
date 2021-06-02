@@ -5,9 +5,12 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.viewpager.widget.ViewPager;
 
+import android.os.StrictMode;
 import android.util.Log;
+import android.util.Xml;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,11 +32,18 @@ import com.squareup.picasso.Picasso;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.lang.reflect.Type;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -45,9 +55,7 @@ public class NewsFragment extends Fragment {
 
     private ArticleRecyclerViewAdapter adapter;
     private RecyclerView view;
-    private Button nextBtn;
-    private Button backBtn;
-    private int page;
+    private SwipeRefreshLayout swipe;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -60,104 +68,125 @@ public class NewsFragment extends Fragment {
 
         View rootView =  inflater.inflate(R.layout.fragment_news, container, false);
         init(rootView);
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+                .permitAll().build();
+        StrictMode.setThreadPolicy(policy);
 
         adapter = new ArticleRecyclerViewAdapter(getActivity());
         LinearLayoutManager manager = new LinearLayoutManager(getActivity());
         view.setLayoutManager(manager);
         view.setAdapter(adapter);
 
-        loadArticle();
+        reload();
 
-        nextBtn.setOnClickListener(new View.OnClickListener() {
+        swipe.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
-            public void onClick(View v) {
-                page++;
-                loadArticle();
+            public void onRefresh() {
+                reload();
+                swipe.setRefreshing(false);
             }
         });
-
-        backBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                page--;
-                loadArticle();
-            }
-        });
-
 
         return rootView;
     }
 
     public void init(View v){
-        page = 1;
         view = v.findViewById(R.id.revViewNews);
-        nextBtn = v.findViewById(R.id.btnNextNews);
-        backBtn = v.findViewById(R.id.btnPreNews);
-
+        swipe = v.findViewById(R.id.swipeLayout);
     }
-    public void loadArticle(){
-        if(page == 1) backBtn.setEnabled(false);
-        else backBtn.setEnabled(true);
+    public List<Article> parseFeed(InputStream inputStream) throws XmlPullParserException,
+            IOException {
+        String title = null;
+        String link = null;
+        String url = null;
+        String time = null;
+        boolean isItem = false;
+        List<Article> items = new ArrayList<>();
 
-        getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                List<Article> list = new ArrayList<>();
-                adapter.setListArticle(list);
-                view.setAdapter(adapter);
-            }
-        });
+        try {
+            XmlPullParser xmlPullParser = Xml.newPullParser();
+            xmlPullParser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false);
+            xmlPullParser.setInput(inputStream, null);
 
-        // Khởi tạo OkHttpClient để lấy dữ liệu.
-        OkHttpClient client = new OkHttpClient();
+            xmlPullParser.nextTag();
+            while (xmlPullParser.next() != XmlPullParser.END_DOCUMENT) {
+                int eventType = xmlPullParser.getEventType();
 
-        // Khởi tạo Moshi adapter để biến đổi json sang model java
-        Moshi moshi = new Moshi.Builder().build();
-        Type usersType = Types.newParameterizedType(Article.class);
-        final JsonAdapter<Article> jsonAdapter = moshi.adapter(usersType);
+                String name = xmlPullParser.getName();
+                if(name == null)
+                    continue;
 
-        // Tạo request lên server.
-        Request request = new Request.Builder()
-                .url("https://ptit-crawler-app.herokuapp.com/tintuc/page/" + page)
-                .build();
-
-        // Thực thi request.
-        client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                Log.e("Error", "Network Error");
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-
-                // Lấy thông tin JSON trả về
-                try {
-                    JSONObject json = new JSONObject(response.body().string());
-                    JSONArray arr =  json.getJSONArray("56");
-                    List<Article> list = new ArrayList<>();
-                    // Cho hiển thị
-                    for(int i = 0; i < arr.length(); i++){
-                        Article article = jsonAdapter.fromJson(arr.get(i).toString());
-                        list.add(article);
+                if(eventType == XmlPullParser.END_TAG) {
+                    if(name.equalsIgnoreCase("item")) {
+                        isItem = false;
                     }
-
-                    if(getActivity() != null){
-                        getActivity().runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                adapter.setListArticle(list);
-                                view.setAdapter(adapter);
-                            }
-                        });
-                    }
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                    continue;
                 }
 
+                if (eventType == XmlPullParser.START_TAG) {
+                    if(name.equalsIgnoreCase("item")) {
+                        isItem = true;
+                        continue;
+                    }
+                }
 
+//                    Log.d("MyXmlParser", "Parsing name ==> " + name);
+                String result = "";
+                if (xmlPullParser.next() == XmlPullParser.TEXT) {
+                    result = xmlPullParser.getText();
+                    xmlPullParser.nextTag();
+                }
+
+                if (name.equalsIgnoreCase("title")) {
+                    title = result;
+                } else if (name.equalsIgnoreCase("guid")) {
+                    link = result;
+                }else if (name.equalsIgnoreCase("pubDate")) {
+                    time = result.substring(0, 16);
+                }else if(name.equalsIgnoreCase("description")){
+//                    System.out.println(result);
+                    Matcher matcher = Pattern.compile("<img src=\"([^\"]+)").matcher(result);
+                    if(matcher.find())
+                        url = matcher.group(1);
+                }
+
+                if (title != null && link != null && url != null && time != null) {
+                    if(isItem) {
+                        Article item = new Article(link, title, url, time);
+                        items.add(item);
+                    }
+
+                    title = null;
+                    link = null;
+                    url = null;
+                    time = null;
+                    isItem = false;
+                }
             }
-        });
+
+            return items;
+        } finally {
+            inputStream.close();
+        }
+    }
+    public void reload(){
+        URL url = null;
+        try {
+            url = new URL("https://vnexpress.net/rss/tin-moi-nhat.rss");
+            InputStream inputStream = url.openConnection().getInputStream();
+
+            List<Article> list = parseFeed(inputStream);
+            if(getActivity() != null){
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        adapter.setListArticle(list);
+                        view.setAdapter(adapter);
+                    }
+                });
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

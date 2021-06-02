@@ -122,37 +122,43 @@ public class SplashActivity extends AppCompatActivity {
                 String un = etUN.getText().toString();
                 String pw = etPW.getText().toString();
 
-                mAuth.signInWithEmailAndPassword(un, pw)
-                        .addOnCompleteListener(SplashActivity.this, new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if (task.isSuccessful()) {
-                                    // Sign in success, update UI with the signed-in user's information
-                                    Log.d("Normal login", "signInWithEmail:success");
-                                    FirebaseUser user = mAuth.getCurrentUser();
-                                    // Signed in successfully, show authenticated UI.
-                                    Account acc = new Account();
-                                    acc.setName(user.getDisplayName());
-                                    acc.setEmail(user.getEmail());
+                if(un.isEmpty() || pw.isEmpty()){
+                    Toast.makeText(SplashActivity.this, "Please fill the infomartion!",
+                            Toast.LENGTH_SHORT).show();
+                }else{
 
-                                    Intent t = new Intent(SplashActivity.this, MainActivity.class);
-                                    t.putExtra("account", acc);
-                                    if(acc.getName() == null){
-                                        t.putExtra("msg", "Welcome User!");
-                                    }else{
-                                        t.putExtra("msg", "Welcome " +  acc.getName());
+                    mAuth.signInWithEmailAndPassword(un, pw)
+                            .addOnCompleteListener(SplashActivity.this, new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if (task.isSuccessful()) {
+                                        // Sign in success, update UI with the signed-in user's information
+                                        Log.d("Normal login", "signInWithEmail:success");
+                                        FirebaseUser user = mAuth.getCurrentUser();
+                                        // Signed in successfully, show authenticated UI.
+                                        Account acc = new Account();
+                                        acc.setName(user.getDisplayName());
+                                        acc.setEmail(user.getEmail());
+
+                                        Intent t = new Intent(SplashActivity.this, MainActivity.class);
+                                        t.putExtra("account", acc);
+                                        if(acc.getName() == null){
+                                            t.putExtra("msg", "Welcome User!");
+                                        }else{
+                                            t.putExtra("msg", "Welcome " +  acc.getName());
+                                        }
+                                        t.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                        startActivity(t);
+                                        finish();
+                                    } else {
+                                        // If sign in fails, display a message to the user.
+                                        Log.w("Normal login", "signInWithEmail:failure", task.getException());
+                                        Toast.makeText(SplashActivity.this, "Wrong username/password!",
+                                                Toast.LENGTH_SHORT).show();
                                     }
-                                    t.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                    startActivity(t);
-                                    finish();
-                                } else {
-                                    // If sign in fails, display a message to the user.
-                                    Log.w("Normal login", "signInWithEmail:failure", task.getException());
-                                    Toast.makeText(SplashActivity.this, "Authentication failed.",
-                                            Toast.LENGTH_SHORT).show();
                                 }
-                            }
-                        });
+                            });
+                }
 
             }
         });
@@ -186,9 +192,11 @@ public class SplashActivity extends AppCompatActivity {
                 Log.w("Firebase Login", "Google sign in failed", e);
             }
         }else if(requestCode == 101){
-            Toast.makeText(SplashActivity.this, "Sign up Successfully", Toast.LENGTH_SHORT).show();
-            String email = data.getData().toString();
-            etUN.setText(email);
+            if(data != null){
+                Toast.makeText(SplashActivity.this, "Sign up Successfully", Toast.LENGTH_SHORT).show();
+                String email = data.getData().toString();
+                etUN.setText(email);
+            }
         }else{
             mCallbackManager.onActivityResult(requestCode, resultCode, data);
         }

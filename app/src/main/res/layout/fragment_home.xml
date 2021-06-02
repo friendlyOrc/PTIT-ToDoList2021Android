@@ -5,25 +5,59 @@
     android:layout_height="match_parent"
     tools:context=".fragment.HomeFragment">
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/btnAddHome"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        android:background="@null"
-        android:src="@drawable/ic_baseline_add_24"
-        android:layout_marginTop="20dp"/>
+<!--    Item for prevent autofocus-->
+    <LinearLayout
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:layout_width="0px"
+        android:layout_height="0px"/>
 
     <LinearLayout android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_marginTop="20dp">
+        android:orientation="vertical">
+
+<!--        <TextView-->
+<!--            android:text="TO DO LIST"-->
+<!--            android:layout_gravity="center_horizontal"-->
+<!--            android:textAlignment="center"-->
+<!--            android:textSize="30dp"-->
+<!--            android:layout_marginLeft="10dp"-->
+<!--            android:layout_marginRight="10dp"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"/>-->
+
+        <EditText
+            android:hint="Search Task"
+            android:textSize="20dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/etSearchHome" />
 
         <TextView
-            android:text="TO DO LIST"
+            android:text="No result"
+            android:id="@+id/noRsHome"
             android:layout_gravity="center_horizontal"
             android:textAlignment="center"
-            android:textSize="30dp"
+            android:textSize="18dp"
+            android:textStyle="italic"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+
+        <TextView
+            android:text="No Task Now. You are doing great!"
+            android:id="@+id/noTaskHome"
+            android:layout_gravity="center_horizontal"
+            android:textAlignment="center"
+            android:textSize="18dp"
+            android:textStyle="italic"
+            android:layout_marginTop="5dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_width="match_parent"

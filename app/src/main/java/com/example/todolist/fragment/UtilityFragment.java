@@ -10,22 +10,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.example.todolist.activity.BMIActivity;
 import com.example.todolist.R;
 import com.example.todolist.activity.CovidActivity;
 import com.example.todolist.activity.MapActivity;
 import com.example.todolist.activity.RandomCat;
-import com.example.todolist.activity.TableSheetActivity;
 import com.example.todolist.activity.WeatherActivity;
 
 public class UtilityFragment extends Fragment {
 
-    private ImageView imgBmi;
     private ImageView imgCat;
     private ImageView imgMap;
     private ImageView imgWeather;
     private ImageView imgCovid;
-    private ImageView imgTable;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -33,14 +29,6 @@ public class UtilityFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_utility, container, false);
         init(rootView);
 
-        imgBmi.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent t = new Intent(getActivity(), BMIActivity.class);
-                t.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(t);
-            }
-        });
         imgCat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,24 +64,14 @@ public class UtilityFragment extends Fragment {
             }
         });
 
-        imgTable.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent t = new Intent(getActivity(), TableSheetActivity.class);
-                t.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(t);
-            }
-        });
         return rootView;
     }
 
     public void init(View view) {
 
-        imgBmi = view.findViewById(R.id.imgBmi);
         imgCat = view.findViewById(R.id.imgCat);
         imgMap = view.findViewById(R.id.imgMap);
         imgWeather = view.findViewById(R.id.imgWeather);
         imgCovid = view.findViewById(R.id.imgCovid);
-        imgTable = view.findViewById(R.id.imgTable);
     }
 }

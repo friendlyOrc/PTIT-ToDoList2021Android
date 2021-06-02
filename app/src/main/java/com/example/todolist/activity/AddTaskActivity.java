@@ -22,6 +22,7 @@ import android.widget.RatingBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.example.todolist.model.Account;
 import com.example.todolist.model.SQLiteHelper;
@@ -58,21 +59,32 @@ public class AddTaskActivity extends AppCompatActivity {
         acc.setName(user.getDisplayName());
         acc.setEmail(user.getEmail());
         sqlHelper = new SQLiteHelper(AddTaskActivity.this);
+
+        Calendar c = Calendar.getInstance();
+        c.setTimeInMillis(System.currentTimeMillis());
+        int h = c.get(Calendar.HOUR);
+        int m = c.get(Calendar.MINUTE);
+        etTimeAdd.setText(h + ":" + m);
+
         btnAddAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int id = (int) (new Date().getTime()/1000);
-                Task o = new Task();
-                o.setId(id);
-                o.setName(etNameAdd.getText().toString());
-                o.setCategory(spnCate.getSelectedItem().toString());
-                o.setTime(etTimeAdd.getText().toString());
-                o.setStatus(0);
+                if(etTimeAdd.getText().toString().length() == 0 || etNameAdd.getText().toString().length() == 0 ){
+                    Toast.makeText(AddTaskActivity.this, "Please fill the information!", Toast.LENGTH_SHORT).show();
+                }else{
+                    int id = (int) (new Date().getTime()/1000);
+                    Task o = new Task();
+                    o.setId(id);
+                    o.setName(etNameAdd.getText().toString());
+                    o.setCategory(spnCate.getSelectedItem().toString());
+                    o.setTime(etTimeAdd.getText().toString());
+                    o.setStatus(0);
 //                long count = sqlHelper.addTask(o);
-                mDatabase.child(acc.getId()).child(String.valueOf(id)).setValue(o);
-                Intent i = new Intent(AddTaskActivity.this, MainActivity.class);
-                startActivity(i);
-                finish();
+                    mDatabase.child(acc.getId()).child(String.valueOf(id)).setValue(o);
+                    Intent i = new Intent(AddTaskActivity.this, MainActivity.class);
+                    startActivity(i);
+                    finish();
+                }
             }
         });
 
@@ -88,9 +100,6 @@ public class AddTaskActivity extends AppCompatActivity {
         btnGetDateAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Calendar c = Calendar.getInstance();
-                int h = c.get(Calendar.HOUR);
-                int m = c.get(Calendar.MINUTE);
                 TimePickerDialog tpd = new TimePickerDialog(AddTaskActivity.this,
                         new TimePickerDialog.OnTimeSetListener() {
                             @Override

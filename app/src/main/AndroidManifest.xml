@@ -19,7 +19,6 @@
         android:theme="@style/Theme.ToDoList">
         <activity android:name=".activity.signUpActivity"
             android:theme="@style/Theme.Design.Light.NoActionBar"></activity>
-        <activity android:name=".activity.TableSheetActivity" />
         <activity android:name=".activity.ArticleWebViewActivity" />
         <activity android:name=".activity.AddTaskActivity" />
         <activity android:name=".activity.EditTaskActivity" />
@@ -47,7 +46,6 @@
             android:name=".activity.RandomCat"
             android:theme="@style/Theme.Design.Light.NoActionBar" />
         <activity android:name=".activity.MainActivity" />
-        <activity android:name=".activity.BMIActivity" />
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"

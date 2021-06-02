@@ -21,39 +21,28 @@
             android:layout_gravity="center"
             android:gravity="center">
 
-            <Button
-                android:id="@+id/btnPreNews"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:text="PREV"/>
 
             <TextView
-                android:text="PTIT NEWS"
+                android:text="NEWS"
                 android:layout_gravity="center_horizontal"
                 android:textAlignment="center"
                 android:textSize="25dp"
                 android:layout_width="170dp"
-                android:layout_height="wrap_content"
-                android:paddingTop="8dp"/>
+                android:layout_height="wrap_content"/>
 
-
-            <Button
-                android:id="@+id/btnNextNews"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="left"
-                android:text="NEXT"/>
         </LinearLayout>
 
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/revViewNews"
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:layout_width="match_parent"
             android:layout_height="408dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginRight="10dp" />
+            android:id="@+id/swipeLayout">
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/revViewNews"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp" />
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     </LinearLayout>
 </FrameLayout>

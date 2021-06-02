@@ -48,6 +48,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.btnAddHome:
+                Intent t = new Intent(MainActivity.this, AddTaskActivity.class);
+                startActivity(t);
+                break;
             case R.id.mToDo:
                 viewPager.setCurrentItem(0);
                 break;
@@ -72,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
                                 finish();
                             }
                         });
+
         }
         return true;
     }

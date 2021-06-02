@@ -30,8 +30,8 @@ public class MyReceiver extends BroadcastReceiver {
                             context.getSystemService(Context.NOTIFICATION_SERVICE);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 NotificationChannel channel1 = new NotificationChannel(
-                        intent.getStringExtra("id"),
-                        "Channel " + intent.getStringExtra("id")
+                        CHANNEL_ID,
+                        "Channel 1"
                         ,
                         NotificationManager.IMPORTANCE_HIGH
                 );
@@ -43,7 +43,7 @@ public class MyReceiver extends BroadcastReceiver {
                             .setSmallIcon(R.drawable.ic_baseline_notifications_24)
                             .setContentTitle(intent.getStringExtra("Title"))
                             .setContentText(intent.getStringExtra("Description"))
-                            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                            .setPriority(NotificationCompat.PRIORITY_MAX)
                             .setAutoCancel(true);
             Intent i = new Intent(context, MainActivity.class);
             PendingIntent pendingIntent =

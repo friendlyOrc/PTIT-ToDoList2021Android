@@ -85,19 +85,19 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="match_parent"
-                android:background="#3D6A39"
+                android:background="#20B47C"
                 android:layout_marginRight="5dp">
 
                 <ImageView
-                    android:id="@+id/imgTable"
+                    android:id="@+id/imgMap"
                     android:layout_width="wrap_content"
                     android:layout_height="80dp"
-                    android:src="@drawable/table" />
+                    android:src="@drawable/map" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="PTIT Time table"
+                    android:text="Google Map"
                     android:gravity="center"
                     android:textAlignment="center"
                     android:textColor="#ffffff"
@@ -134,68 +134,6 @@
                     android:layout_marginBottom="10dp"/>
             </RelativeLayout>
 
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="120dp"
-            android:orientation="horizontal"
-            android:paddingLeft="10dp"
-            android:paddingTop="10dp"
-            android:paddingRight="10dp">
-
-            <RelativeLayout
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="match_parent"
-                android:background="#20B47C"
-                android:layout_marginRight="5dp">
-
-                <ImageView
-                    android:id="@+id/imgMap"
-                    android:layout_width="wrap_content"
-                    android:layout_height="80dp"
-                    android:src="@drawable/map" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Google Map"
-                    android:gravity="center"
-                    android:textAlignment="center"
-                    android:textColor="#ffffff"
-                    android:textStyle="bold"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentLeft="true"
-                    android:layout_marginBottom="10dp"/>
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="match_parent"
-                android:background="#C5A1C6">
-
-                <ImageView
-                    android:id="@+id/imgBmi"
-                    android:layout_width="wrap_content"
-                    android:layout_height="80dp"
-                    android:src="@drawable/weight" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="BMI"
-                    android:gravity="center"
-                    android:textAlignment="center"
-                    android:textColor="#ffffff"
-                    android:textStyle="bold"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentLeft="true"
-                    android:layout_marginBottom="10dp"/>
-            </RelativeLayout>
         </LinearLayout>
 
     </LinearLayout>
